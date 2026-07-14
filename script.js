@@ -1,9 +1,30 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
+const historyList = document.getElementById("history-list");
+const clearHistoryBtn = document.getElementById("clear-history");
 
 let currentInput = "";
 let previousInput = "";
 let operator = null;
+let operationsHistory = JSON.parse(localStorage.getItem("operaciones")) || [];
+//mostrar historial
+function renderHistory() {
+  historyList.innerHTML = "";
+
+  operationsHistory.forEach((operationStr) => {
+    const li = document.createElement("li");
+    li.textContent = operationStr;
+    historyList.prepend(li);
+  });
+}
+//guardar en LocalStorage
+function saveToHistory(prev, op, curr, result) {
+  const operationString = `${prev} ${op} ${curr} = ${result}`;
+  operationsHistory.push(operationString);
+  localStorage.setItem("operaciones", JSON.stringify(operationsHistory));
+
+  renderHistory();
+}
 
 function updateDisplay(value) {
   display.textContent = value || "0";
@@ -54,6 +75,8 @@ function calculate() {
       return;
   }
 
+  saveToHistory(prev, operator, current, result);
+
   currentInput = String(result);
   operator = null;
   previousInput = "";
@@ -81,6 +104,12 @@ buttons.forEach((button) => {
   });
 });
 
+clearHistoryBtn.addEventListener("click", () => {
+  localStorage.removeItem("operaciones");
+  operationsHistory = [];
+  renderHistory();
+});
+
 document.addEventListener("keydown", (e) => {
   if ((e.key >= "0" && e.key <= "9") || e.key === ".") {
     handleNumber(e.key);
@@ -93,3 +122,5 @@ document.addEventListener("keydown", (e) => {
     resetState();
   }
 });
+
+renderHistory();

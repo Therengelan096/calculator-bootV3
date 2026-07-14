@@ -13,6 +13,12 @@ body {
   background-color: #e9ecef;
 }
 
+.app-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
 .calculator {
   width: 320px;
   background-color: #212529;
@@ -58,7 +64,6 @@ body {
   background-color: #dc3545;
   font-weight: bold;
 }
-
 .btn-clear:active {
   background-color: #c82333;
 }
@@ -67,7 +72,6 @@ body {
   background-color: #f59f00;
   font-weight: bold;
 }
-
 .btn-operator:active {
   background-color: #f08c00;
 }
@@ -76,11 +80,60 @@ body {
   background-color: #2b8a3e;
   font-weight: bold;
 }
-
 .btn-equals:active {
   background-color: #257936;
 }
 
 .btn-zero {
   grid-column: span 2;
+}
+
+.history-panel {
+  width: 250px;
+  height: 440px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.history-panel h2 {
+  font-size: 1.2rem;
+  color: #343a40;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.history-list {
+  flex-grow: 1;
+  list-style: none;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.history-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f3f5;
+  color: #495057;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.btn-clear-history {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-clear-history:hover {
+  background-color: #495057;
 }
